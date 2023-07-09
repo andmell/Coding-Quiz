@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The following meta tag will have the browser refresh every so often so I can see live updates of my work -->
+    <meta http-equiv="refresh" content="3">
     <title>Coding Quiz Game</title>
     <link rel="Stylesheet" href="assets/CSS/styles.css">
 </head>
 
 <body>
-    <header>
-        <h1> Testing your JavaScript Skills</h1>
-        <p id="timer"> Timer </p>
-    </header>
+<div class="app">
+    <h1> Quiz </h1>
+    <div class="quiz">
+        <h2 id="question">Question goes here</h2>
+        <div id="answer-buttons">
+            <button class='btn'>Answer 1</button>
+            <button class='btn'>Answer 2</button>
+            <button class='btn'>Answer 3</button>
+            <button class='btn'>Answer 4</button>
+        </div>
+        <button id="next-btn">Next</button>
+    </div>
+</div>
 
-    <main>
-        <p>This quiz will test your knowledge on various applications of Javascript. The quiz is timed. Each incorrect answer will result in a reduction in the timer </p>
-        <button id="startbtn"> Start Quiz </button>
-    </main>
-
-
-
-    <!-- TODO:
-- A header to introduce the quiz
-a button to start the quiz -->
 
 
 <script src="assets/JavaScript/script.js"></script>

@@ -1,8 +1,57 @@
-let startbtn = document.querySelector("#startbtn");
-let timer = document.querySelector("#timer");
 
+const quizQuestions = [
+    {
+        question: "Test Question 1",
+        answer: {
+            a: "test1",
+            b: "test2",
+            c: "test3 answer",
+            d: "test4"
+        },
+        correctAnswer: "c"
+    },
+    {
+        question: "Test Question 2",
+        answers: {
+            a: "test1 answer",
+            b: "test2",
+            c: "test3",
+            d: "test4"
+        },
+        correctAnswer: "a"
+    },
+    {
+        question: "test Question 3",
+        answers: {
+            a: "test1",
+            b: "test2",
+            c: "test3",
+            d: "test4 answer"   
+        },
+        correctAnswer: "d"
+    }
+]
+
+function buildQuiz(){
+    //variable to store html output
+    const output = [];
+
+    quizQuestions.forEach(
+        (currentQuestion, questionNumber) => {
+            const answers = [];
+        }
+    )
+};
+
+function showResults(){};
+
+// display quiz right away
+
+
+//Click this button to start quiz
 startbtn.addEventListener("click", function(){
-    alert("hello");
+//This runs the buildQuiz function
+    buildQuiz();
 })
 
 // When the start button is clicked, the quiz should start. Likely a function.
