@@ -12,3 +12,6 @@ WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
 THEN I can save my initials and my score
+
+## Credits 
+- [A quiz app tutorial on youtube by user GreatStack](https://www.youtube.com/watch?v=PBcqGxrr9g8)

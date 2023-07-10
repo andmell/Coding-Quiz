@@ -1,42 +1,42 @@
 // This constant allows us to set questions for our quiz. In concept, we can add as many questions as we'd like without messing up the code too much.
 const quizQuestions = [
     {
-        question: "Test Question 1. Answer 3",
+        question: "What is the color of the sky?",
         answers: [
-            { text: "test answer 1", correct: false},
-            { text: "test answer 2", correct: false},
-            { text: "test answer 3", correct: true},
-            { text: "test answer 4", correct: false},
+            { text: "Magenta", correct: false},
+            { text: "Green", correct: false},
+            { text: "Blue", correct: true},
+            { text: "Razzmatazz", correct: false},
  
         ],
     },
     {
-        question: "Test Question 2. Answer 2",
+        question: "Select the animal that lives in the ocean.",
         answers: [
-            { text: "test answer 1", correct: false},
-            { text: "test answer 2", correct: true},
-            { text: "test answer 3", correct: false},
-            { text: "test answer 4", correct: false},
+            { text: "Giraffe", correct: false},
+            { text: "Jellyfish", correct: true},
+            { text: "Vulture", correct: false},
+            { text: "Scrappy Doo", correct: false},
  
         ],
     },
     {
-        question: "Test Question 3. Answer 4",
+        question: "Out of these options, which album is made by Taylor Swift?",
         answers: [
-            { text: "test answer 1", correct: false},
-            { text: "test answer 2", correct: false},
-            { text: "test answer 3", correct: false},
-            { text: "test answer 4", correct: true},
+            { text: "Ultraviolence", correct: false},
+            { text: "RENAISSANCE", correct: false},
+            { text: "Endless Summer Vacation", correct: false},
+            { text: "Folklore", correct: true},
  
         ],
     },
     {
-        question: "Test Question 4. Answer 1",
+        question: "Speaking of Taylor Swift, what are your thoughts on her?",
         answers: [
-            { text: "test answer 1", correct: true},
-            { text: "test answer 2", correct: false},
-            { text: "test answer 3", correct: false},
-            { text: "test answer 4", correct: false},
+            { text: "Love her. She's an icon.", correct: true},
+            { text: "I don't really think about her", correct: false},
+            { text: "I think she's overrated.", correct: false},
+            { text: "I dislike her, and her music.", correct: false},
  
         ],
     }
@@ -66,7 +66,7 @@ function startQuiz(){
 }
 
 function showQuestion(){
-    // We need to create a function that will remove the preset answer buttons from the screen. This function is define below.
+    // We need to create a function that will remove the preset answer buttons from the screen. This function is defined below.
     resetState();
     // first, we are assigning the current question to represent an object from the quizQuestions array, based off of the current question index.
     let currentQuestion = quizQuestions[currentQuestionIndex];
@@ -85,6 +85,10 @@ function showQuestion(){
         button.classList.add("btn");
         // Finally we will append the new button element to our HTML so that they appear in our site
         answerButtons.appendChild(button);
+        if(answer.correct){
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click", selectAnswer);
     });
 }
 
@@ -99,11 +103,59 @@ function resetState(){
     }
 }
 
+// this function determines what happens when the user clicks a button. Note that 'e' is shorthand for event.
+function selectAnswer(e){
+    // We are defining 'selectedBtn' is whatever the user clicked on, which is e.target
+    const selectedBtn = e.target;
+    // We are defining the isCorrect variable to refer to the dataset in the quizQuestions array. This variable can be either true or false depending on the 
+    const isCorrect = selectedBtn.dataset.correct === "true";
+    if (isCorrect){
+        selectedBtn.classList.add("correct");
+        score++;
+    } else {
+        selectedBtn.classList.add("incorrect");
+    }
+    Array.from(answerButtons.children).forEach(button => {
+        if(button.dataset.correct === "true"){
+            button.classList.add("correct");
+        }
+        button.disabled = true;
+    });
+    nextButton.style.display = "block";
+}
+
+function showScore(){
+    resetState();
+    questionElement.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
+    nextButton.innerHTML = "Play Again";
+    nextButton.style.display = "block";
+}
+
+
+function handleNextButton(){
+    currentQuestionIndex++;
+    if(currentQuestionIndex < quizQuestions.length){
+        showQuestion();
+    } else {
+        showScore();
+    }
+}
+
+
+nextButton.addEventListener("click", ()=>{
+    if(currentQuestionIndex < quizQuestions.length){
+        handleNextButton();
+    } else {
+        startQuiz();
+    }
+})
+
+
 startQuiz();
 
 // When the start button is clicked, the quiz should start. Likely a function.
 // The quiz should have n questions, each with 4 possible answers. Likely an array.
-// When a correct answer is picked, a point is awarded (point++) and the next question is shown.
+// When a correct answer is picked, a point is awarded (score++) and the next question is shown.
 // When an incorrect answer is picked, the chosen answer is greyed out, and time is deducted from the timer
 // The end of the quiz is achieved when all questions have been answered.
 // The end of the quiz is also achieved if the timer reaches 0.
