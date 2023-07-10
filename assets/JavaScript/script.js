@@ -66,6 +66,7 @@ function startQuiz(){
 }
 
 function showQuestion(){
+    // We need to create a function that will remove the preset answer buttons from the screen. This function is define below.
     resetState();
     // first, we are assigning the current question to represent an object from the quizQuestions array, based off of the current question index.
     let currentQuestion = quizQuestions[currentQuestionIndex];
@@ -88,8 +89,12 @@ function showQuestion(){
 }
 
 function resetState(){
+    // The next button needs to be hidden until the user picks a question.
     nextButton.style.display = "none";
+    // The firstChild of the answerButtons are all of the subsequent buttons listed in the HTML
     while(answerButtons.firstChild){
+        //By using a while method, we can remove the buttons listed in the HTML, so that only our buttons created in Js are shown in their place. 
+        //It reads as "while the answer buttons div has children... we will remove the first listed children" AKA removing the buttons in the HTML.
         answerButtons.removeChild(answerButtons.firstChild);
     }
 }
