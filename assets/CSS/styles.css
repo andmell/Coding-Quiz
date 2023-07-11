@@ -18,6 +18,8 @@ body {
     padding: 30px;
 }
 .app h1{
+    display: flex;
+    justify-content: space-between;
     font-size: 25px;
     color:cornflowerblue;
     font-weight: 600;
@@ -25,8 +27,13 @@ body {
     padding-bottom: 30px;
 
 }
+
 .quiz {
     padding: 20px 0;
+}
+
+#timer {
+    color: black;
 }
 
 .quiz h2 {

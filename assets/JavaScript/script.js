@@ -1,3 +1,43 @@
+// testing function
+
+function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since 
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds; 
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            start = Date.now() + 1000;
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+}
+
+window.onload = function () {
+    var timerDuration = 1 * 5,
+        display = document.querySelector('#timer');
+    startTimer(timerDuration, display);
+};
+
+// Testing function
+
 // This constant allows us to set questions for our quiz. In concept, we can add as many questions as we'd like without messing up the code too much.
 const quizQuestions = [
     {
@@ -178,4 +218,8 @@ startQuiz();
 // The initial page of the quiz should should have the header that welcomes the user to the quiz, h2 should give the rules, and the next button should say "start quiz". The start quiz function
 // should start the function that runs the timer.
 
-// At the end of the quiz the user should be prompted to 
+// At the end of the quiz the user should be prompted to input their initials which is saved to their local storage.
+
+//TO DO
+// Add timer
+// Add start page
