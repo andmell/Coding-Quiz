@@ -15,3 +15,4 @@ THEN I can save my initials and my score
 
 ## Credits 
 - [A quiz app tutorial on youtube by user GreatStack](https://www.youtube.com/watch?v=PBcqGxrr9g8)
+- [A tutorial on creating a countdown timer in JavaScript by Stackoverflow user Robbmj, edited by Stackoverflow user jlo](https://stackoverflow.com/questions/20618355/how-to-write-a-countdown-timer-in-javascript)

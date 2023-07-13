@@ -28,6 +28,38 @@ body {
 
 }
 
+#startTxt {
+    padding-top: 3%;
+}
+
+#endBtns {
+    display: flex;
+}
+
+
+.buttonStyle {
+    background: cornflowerblue;
+    color: white;
+    font-weight: 500;
+    width: 150px;
+    border: 0;
+    padding: 10px;
+    margin: 20px auto 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#quizBlt {
+    padding-left: 50px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.initHide {
+    display:none;
+}
+
+
 .quiz {
     padding: 20px 0;
 }

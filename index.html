@@ -10,8 +10,26 @@
 </head>
 
 <body>
-<div class="app">
-    <h1> Quiz <span id="timer">00</span></h1>
+
+<div class="app" id="startScrn">
+    <h1>Welcome to the JavaScript Quiz!</h1>
+    <section id="startTxt">
+        <p>Welcome to the JavaScript quiz! This quiz will test your working knowledge of all things JavaScript. 
+            <br><br> Before you get started, there are a few things to know:</p>
+            <ul id="quizBlt">
+                <li>You will only get once chance to select an answer.</li>
+                <li>An incorrect answer will deduct a point from your score.</li>
+                <li>The correct answer will be shown to you after you answer.</li>
+            </ul>
+        <p> Ready? Click "Start Quiz" to begin!</p>
+        <button class="buttonStyle" id="startBtn">Start Quiz</button>
+    </section>
+    
+</div>
+
+
+<div class="app initHide" id="quizScrn">
+    <h1> Quiz </h1>
     <div class="quiz">
         <h2 id="question">Question goes here</h2>
         <div id="answer-buttons">
@@ -24,7 +42,22 @@
     </div>
 </div>
 
+<div class="app initHide" id="endScrn">
+    <h1>Thanks for playing! Would you like to save your score for later?</h1>
+    <div id="scoreBoard">
+        <label for="initials">Your initials here!</label>
+        <textarea id="initials" name="initials"></textarea>
 
+    </div>
+    <div id="endBtns">
+        <button class="buttonStyle" id="submitScore">Submit</button>
+        <button class="buttonStyle" id="playAgn">Play Again</button>
+    </div>
+</div>
+
+<div class="app initHide" id="highScore">
+
+</div>
 
 <script src="assets/JavaScript/script.js"></script>
 </body>

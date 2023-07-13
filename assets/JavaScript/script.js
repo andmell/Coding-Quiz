@@ -1,43 +1,9 @@
-// testing function
-
-function startTimer(duration, display) {
-    var start = Date.now(),
-        diff,
-        minutes,
-        seconds;
-    function timer() {
-        // get the number of seconds that have elapsed since 
-        // startTimer() was called
-        diff = duration - (((Date.now() - start) / 1000) | 0);
-
-        // does the same job as parseInt truncates the float
-        minutes = (diff / 60) | 0;
-        seconds = (diff % 60) | 0;
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds; 
-
-        if (diff <= 0) {
-            // add one second so that the count down starts at the full duration
-            // example 05:00 not 04:59
-            start = Date.now() + 1000;
-        }
-    };
-    // we don't want to wait a full second before the timer starts
-    timer();
-    setInterval(timer, 1000);
-}
-
-window.onload = function () {
-    var timerDuration = 1 * 5,
-        display = document.querySelector('#timer');
-    startTimer(timerDuration, display);
-};
-
-// Testing function
-
+let quizScrn = document.querySelector('#quizScrn');
+let startScrn = document.querySelector('#startScrn');
+let endScrn = document.querySelector('#endScrn');
+let startBtn = document.querySelector('#startBtn');
+let playAgn = document.querySelector('#playAgn');
+let initialsInput = document.querySelector('#initials');
 // This constant allows us to set questions for our quiz. In concept, we can add as many questions as we'd like without messing up the code too much.
 const quizQuestions = [
     {
@@ -71,12 +37,12 @@ const quizQuestions = [
         ],
     },
     {
-        question: "Speaking of Taylor Swift, what are your thoughts on her?",
+        question: "Who was the lead role in Queen's Gambit?",
         answers: [
-            { text: "Love her. She's an icon.", correct: true},
-            { text: "I don't really think about her", correct: false},
-            { text: "I think she's overrated.", correct: false},
-            { text: "I dislike her, and her music.", correct: false},
+            { text: "Anya Taylor Joy", correct: true},
+            { text: "George Bush", correct: false},
+            { text: "Queen Elizabeth II", correct: false},
+            { text: "Phillip Seymour Hoffman", correct: false},
  
         ],
     }
@@ -94,16 +60,21 @@ let currentQuestionIndex = 0;
 // It's important to define a score variable now, so that we can increment it inside of a subsequent function
 let score = 0;
 
+
 function startQuiz(){
 // To start the quiz, we will set the current question index to 0, which will assign the first object in our array to the question and answer variables respectively
     currentQuestionIndex = 0;
     // The score will be set, or reset to 0 and will increment for each question answered correctly
     score = 0;
+    
     // The text for the next button will simply read "Next". This will change depending on the context of the quiz.
     nextButton.innerHTML = "Next";
+    startScrn.style.display = 'none';
+    endScrn.style.display = 'none';
+    quizScrn.style.display = 'block';
     // We will have to write a showQuestion function, which will assign the actual question to the h2 in the html, and the possible answers to the buttons in the html
     showQuestion();
-}
+};
 
 function showQuestion(){
     // We need to create a function that will remove the preset answer buttons from the screen. This function is defined below.
@@ -130,7 +101,7 @@ function showQuestion(){
         }
         button.addEventListener("click", selectAnswer);
     });
-}
+};
 
 function resetState(){
     // The next button needs to be hidden until the user picks a question.
@@ -141,7 +112,7 @@ function resetState(){
         //It reads as "while the answer buttons div has children... we will remove the first listed children" AKA removing the buttons in the HTML.
         answerButtons.removeChild(answerButtons.firstChild);
     }
-}
+};
 
 // this function determines what happens when the user clicks a button. Note that 'e' is shorthand for event.
 function selectAnswer(e){
@@ -168,7 +139,12 @@ function selectAnswer(e){
         button.disabled = true;
     });
     nextButton.style.display = "block";
-}
+};
+
+function highScore(){
+    quizScrn.style.display = "none";
+    endScrn.style.display = 'block';
+};
 
 // This next block of code will define the showScore function, which will show the score at the end of the quiz. 
 function showScore(){
@@ -179,7 +155,7 @@ function showScore(){
     // The HTML of the nextButton will change to "play again" and will be unhidden.
     nextButton.innerHTML = "Play Again";
     nextButton.style.display = "block";
-}
+};
 
 // This block of code will define the handleNextButton function
 function handleNextButton(){
@@ -191,20 +167,76 @@ function handleNextButton(){
         // if the current question index = the length of the quiz questions, we will show the score instead.
     } else {
         showScore();
+        nextButton.innerHTML = "Score Board";
     }
-}
+};
 
 // This code defines what happens if the user clicks on the next button.
 nextButton.addEventListener("click", ()=>{
     if(currentQuestionIndex < quizQuestions.length){
         handleNextButton();
     } else {
-        startQuiz();
+        highScore();
     }
-})
+});
+
+let userScoreBoard = {
+    initials: initialsInput.value,
+    score,
+}
+
+startBtn.addEventListener('click', ()=> {
+    startQuiz();
+});
+
+playAgn.addEventListener('click', ()=>{
+    startQuiz();
+});
+
+// startQuiz();
+// init(); 
+
+// function startTimer(duration, display) {
+//     var start = Date.now(),
+//         diff,
+//         minutes,
+//         seconds;
+//     function timer() {
+//         // get the number of seconds that have elapsed since 
+//         // startTimer() was called
+//         diff = duration - (((Date.now() - start) / 1000) | 0);
+
+//         // does the same job as parseInt truncates the float
+//         minutes = (diff / 60) | 0;
+//         seconds = (diff % 60) | 0;
+
+//         minutes = minutes < 10 ? "0" + minutes : minutes;
+//         seconds = seconds < 10 ? "0" + seconds : seconds;
+
+//         display.textContent = minutes + ":" + seconds; 
+
+//         if (diff <= 0) {
+//             // add one second so that the count down starts at the full duration
+//             // example 05:00 not 04:59
+//             start = Date.now() + 1000;
+//         }
+//     };
+//     // we don't want to wait a full second before the timer starts
+//     timer();
+//     var timerSet = setInterval(timer, 1000);
+// }
+
+// window.onload = function () {
+//     var timerDuration = 1 * 5,
+//         display = document.querySelector('#timer');
+//     startTimer(timerDuration, display);
+//     if('#timer' == "00:00"){
+//         showScore();
+//     }
+// };
 
 
-startQuiz();
+
 
 // When the start button is clicked, the quiz should start. Likely a function.
 // The quiz should have n questions, each with 4 possible answers. Likely an array.
