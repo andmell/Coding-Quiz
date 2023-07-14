@@ -4,45 +4,108 @@ let endScrn = document.querySelector('#endScrn');
 let startBtn = document.querySelector('#startBtn');
 let playAgn = document.querySelector('#playAgn');
 let initialsInput = document.querySelector('#initials');
+let submitBtn = document.querySelector('#submitScore');
+let highScore = [];
+let scoreboard = document.querySelector('#scores');
 // This constant allows us to set questions for our quiz. In concept, we can add as many questions as we'd like without messing up the code too much.
 const quizQuestions = [
     {
-        question: "What is the color of the sky?",
+        question: "JavaScript primarily adds this to our web pages:",
         answers: [
-            { text: "Magenta", correct: false},
-            { text: "Green", correct: false},
-            { text: "Blue", correct: true},
-            { text: "Razzmatazz", correct: false},
+            { text: "Structure", correct: false},
+            { text: "Styling", correct: false},
+            { text: "Functionality", correct: true},
+            { text: "Accessibility", correct: false},
  
         ],
     },
     {
-        question: "Select the animal that lives in the ocean.",
+        question: "Is JavaScript case-sensitive?",
         answers: [
-            { text: "Giraffe", correct: false},
-            { text: "Jellyfish", correct: true},
-            { text: "Vulture", correct: false},
-            { text: "Scrappy Doo", correct: false},
+            { text: "No", correct: false},
+            { text: "Yes", correct: true},
+            { text: "Only when declared in variables", correct: false},
+            { text: "Only when declared in functions", correct: false},
  
         ],
     },
     {
-        question: "Out of these options, which album is made by Taylor Swift?",
+        question: "How do you write 'Hello World' in an alert box?",
         answers: [
-            { text: "Ultraviolence", correct: false},
-            { text: "RENAISSANCE", correct: false},
-            { text: "Endless Summer Vacation", correct: false},
-            { text: "Folklore", correct: true},
+            { text: "msgBox('Hello World')", correct: false},
+            { text: "alertbox('Hello World')", correct: false},
+            { text: "msg('Hello World')", correct: false},
+            { text: "alert('Hello World')", correct: true},
  
         ],
     },
     {
-        question: "Who was the lead role in Queen's Gambit?",
+        question: "How do you create a function in JavaScript?",
         answers: [
-            { text: "Anya Taylor Joy", correct: true},
-            { text: "George Bush", correct: false},
-            { text: "Queen Elizabeth II", correct: false},
-            { text: "Phillip Seymour Hoffman", correct: false},
+            { text: "function = myFunction()", correct: true},
+            { text: "function:myFunction()", correct: false},
+            { text: "function myFunction()", correct: false},
+            { text: "createElement(function(myFunction))", correct: false},
+ 
+        ],
+    },
+    {
+        question: "How do you call a function in JavaScript?",
+        answers: [
+            { text: "call function myFunction()", correct: false},
+            { text: "myFunction()", correct: true},
+            { text: "call myFunction()", correct: false},
+            { text: "call.myFunction().now", correct: false},
+ 
+        ],
+    },
+    {
+        question: "How do you start a FOR loop?",
+        answers: [
+            { text: "for (i < = 5; i++)", correct: false},
+            { text: "for (i = 0, i < 5)", correct: false},
+            { text: "for i = 1 to 5", correct: false},
+            { text: "for (i = 0; i < 5; i++)", correct: true},
+ 
+        ],
+    },
+    {
+        question: "How do you add a comment in JavaScript?",
+        answers: [
+            { text: "%This is a comment%", correct: false},
+            { text: "'This is a comment'", correct: false},
+            { text: "//This is a comment", correct: true},
+            { text: "!This is a comment!", correct: false},
+ 
+        ],
+    },
+    {
+        question: "What is the correct way to write a JavaScript array?",
+        answers: [
+            { text: "var colors = ['red', 'green', 'blue']", correct: true},
+            { text: "var colors = 1 = ('red'), 2 = ('green'), 3 = ('blue')", correct: false},
+            { text: "var colors = 'red','green','blue'", correct: false},
+            { text: "var colors = (1:'red',2:'green',3:'blue')", correct: false},
+ 
+        ],
+    },
+    {
+        question: "How do you declare a JavaScript variable?",
+        answers: [
+            { text: "variable carName;", correct: false},
+            { text: "v carName;", correct: false},
+            { text: "declare var=carName;", correct: false},
+            { text: "var carName;", correct: true},
+ 
+        ],
+    },
+    {
+        question: "What will the following code return: Boolean(10 > 9)",
+        answers: [
+            { text: "true", correct: true},
+            { text: "undefined", correct: false},
+            { text: "null", correct: false},
+            { text: "false", correct: false},
  
         ],
     }
@@ -141,7 +204,7 @@ function selectAnswer(e){
     nextButton.style.display = "block";
 };
 
-function highScore(){
+function setHighScore(){
     quizScrn.style.display = "none";
     endScrn.style.display = 'block';
 };
@@ -176,14 +239,31 @@ nextButton.addEventListener("click", ()=>{
     if(currentQuestionIndex < quizQuestions.length){
         handleNextButton();
     } else {
-        highScore();
+        setHighScore();
     }
 });
 
-let userScoreBoard = {
-    initials: initialsInput.value,
-    score,
-}
+
+
+
+
+submitBtn.addEventListener('click', function(event) {
+    let userScoreBoard = {
+        initials: initialsInput.value.trim(),
+        score: score,
+};
+    localStorage.setItem('userScoreBoard', JSON.stringify(userScoreBoard));
+    highScore.push(userScoreBoard);
+    console.log(highScore);
+    
+    let recentScore = JSON.parse(localStorage.getItem('userScoreBoard'));
+    let postScore = document.createElement('li');
+    postScore.innerHTML = (initials.value + ' scored ' + score + ' points! ');
+    scoreboard.appendChild(postScore);
+
+});
+
+
 
 startBtn.addEventListener('click', ()=> {
     startQuiz();
